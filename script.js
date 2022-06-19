@@ -9,12 +9,12 @@ let stopStatus  = false
 
 
 function timer(){
-	let hrTime = 1
-	let minTime = 59
-	let current = 59
-	// let hrTime = parseInt(hr.textContent)
-	// let minTime = parseInt(min.textContent)
-	// let current = parseInt(sec.textContent);
+	// let hrTime = 1
+	// let minTime = 59
+	// let current = 59
+	let hrTime = parseInt(hr.textContent)
+	let minTime = parseInt(min.textContent)
+	let current = parseInt(sec.textContent);
 if(stopStatus){
 		setTimeout(function go() {
 			sec.textContent = current
