@@ -1,58 +1,87 @@
-let min = document.querySelector('.min');
-let sec =  document.querySelector('.sec');
-let hr = document.querySelector('.hrs');
-const start  = document.querySelector('.start')
-const stop  = document.querySelector('.stop')
-let stopStatus  = false
+"use sctrict";
+let min = document.querySelector(".min");
+let sec = document.querySelector(".sec");
+let hr = document.querySelector(".hrs");
+let ms = document.querySelector(".ms");
 
+const start = document.querySelector(".btn_status_start");
+const stop = document.querySelector(".btn_status_stop");
+const reset = document.querySelector(".btn_status_reset");
+let intervalTime;
 
+let hour = 0,
+  minutes = 0,
+  seconds = 0,
+  miliSeconds = 0;
 
-
-function timer(){
-	// let hrTime = 1
-	// let minTime = 59
-	// let current = 59
-	let hrTime = parseInt(hr.textContent)
-	let minTime = parseInt(min.textContent)
-	let current = parseInt(sec.textContent);
-if(stopStatus){
-		setTimeout(function go() {
-			sec.textContent = current
-			if (stopStatus) {
-				setTimeout(go, 1000);
-			}
-			if(current==60){
-				current = 0;
-				min.textContent =`0${minTime += 1}`
-		
-			}
-			if(minTime==60){
-				minTime = 0
-				hr.textContent = `0${hrTime += 1}`
-				if(hr.textContent>=10){
-					hr.textContent = hrTime+=1;
-				}
-			}
-			return current+=1;
-		}, 1000);
-	}
-	
-	return current
-}
-
-
-
-start.addEventListener('click',function(){
-	stopStatus = true
-	timer()
-})
+start.addEventListener("click", () => {
+  clearInterval(intervalTime);
+  intervalTime = setInterval(startTime, 10);
+});
 // secTimer()
 
-stop.addEventListener('click',function(){
-	stopStatus = false
-		
-})
+stop.addEventListener("click", function () {
+  clearInterval(intervalTime);
+});
 
+reset.addEventListener("click", () => {
+  hour = 0;
+  (minutes = 0), (seconds = 0), (miliSeconds = 0);
+  hr.textContent = "0" + hour;
+  min.textContent = "0" + minutes;
+  sec.textContent = "0" + seconds;
+  ms.textContent = "0" + miliSeconds;
+  clearInterval(intervalTime);
+});
 
+function startTime() {
+  miliSeconds++;
 
+  if (miliSeconds < 9) {
+    ms.textContent = "0" + miliSeconds;
+  }
+  if (miliSeconds > 9) {
+    ms.textContent = miliSeconds;
+  }
+  if (miliSeconds > 99) {
+    miliSeconds = 0;
+    seconds++;
+    sec.textContent = seconds;
+  }
 
+  if (seconds < 9) {
+    sec.textContent = "0" + seconds;
+  }
+  if (seconds > 9) {
+    sec.textContent = seconds;
+  }
+  if (seconds > 59) {
+    seconds = 0;
+    minutes++;
+    min.textContent = minutes;
+  }
+  // minutesCheck(minutes)
+
+  if (minutes < 9) {
+    min.textContent = "0" + minutes;
+  }
+
+  if (minutes > 9) {
+    min.textContent = minutes;
+  }
+  if (minutes > 59) {
+    minutes = 0;
+    hour++;
+    hr.textContent = hour;
+  }
+
+  if (hour < 9) {
+    hr.textContent = "0" + hour;
+  }
+  if (hour > 9) {
+    hr.textContent = hour;
+  }
+  if (hour > 23) {
+    hour = 0;
+  }
+}
